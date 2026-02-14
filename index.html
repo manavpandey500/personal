@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(to bottom, #ffd6e8, #ffffff);
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,10 +19,10 @@
         .container {
             background: white;
             padding: 40px 30px;
-            border-radius: 20px;
+            border-radius: 25px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            max-width: 400px;
+            max-width: 420px;
             width: 90%;
         }
 
@@ -33,13 +33,21 @@
 
         h1 {
             color: #ff4d88;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
+        }
+
+        .sure-text {
+            color: #ff6b9d;
+            font-size: 18px;
+            margin-bottom: 20px;
+            min-height: 25px;
         }
 
         .buttons {
             display: flex;
             justify-content: center;
             gap: 20px;
+            position: relative;
         }
 
         button {
@@ -65,6 +73,7 @@
         #noBtn {
             background: #ddd;
             color: #333;
+            position: relative;
         }
 
         #noBtn:hover {
@@ -73,9 +82,17 @@
 
         .message {
             margin-top: 25px;
-            font-size: 22px;
+            font-size: 20px;
             color: #ff4d88;
             display: none;
+            line-height: 1.5;
+        }
+
+        .signature {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff2f73;
         }
     </style>
 </head>
@@ -84,14 +101,16 @@
 
 <div class="container">
 
-    <!-- Cute Dog Image -->
+    <!-- Cute Dog Image (Reliable Link) -->
     <img 
-        src="https://i.imgur.com/3Wb8R9x.png" 
+        src="https://t4.ftcdn.net/jpg/01/32/37/11/240_F_132371198_OMS5zDgS7Pjy09nUyFT8cAHglSygqpR4.jpg" 
         alt="Cute Dog"
         class="dog"
     >
 
     <h1>Ashu bache will you be my Valentine? 💘</h1>
+
+    <div class="sure-text" id="sureText"></div>
 
     <div class="buttons">
         <button id="yesBtn">Yes 💖</button>
@@ -99,8 +118,15 @@
     </div>
 
     <div class="message" id="message">
-        Yayyy! I love you sooo much! 🥰💞<br>
-        Happy Valentine’s Day ❤️
+        My love, 💕<br><br>
+        Thank you for being my Valentine and for filling my life with
+        happiness, smiles, and endless love.  
+        Every moment with you is special, and I’m so lucky to have you. 🥰💞<br><br>
+        Happy Valentine’s Day, my forever love ❤️🌹
+
+        <div class="signature">
+            — Regards, Mana 💌
+        </div>
     </div>
 
 </div>
@@ -109,15 +135,30 @@
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const message = document.getElementById("message");
+    const sureText = document.getElementById("sureText");
 
     let yesSize = 1;
     let noClicks = 0;
 
+    const sureMessages = [
+        "Are you sure? 🥺",
+        "Really sure? 💔",
+        "Think again… 😢",
+        "Don’t break my heart 😭",
+        "Last chance… 🥹",
+        "Okay… you have to say Yes now 😘"
+    ];
+
     noBtn.addEventListener("click", () => {
         noClicks++;
 
+        // Show "Are you sure" messages
+        if (noClicks <= sureMessages.length) {
+            sureText.textContent = sureMessages[noClicks - 1];
+        }
+
         // Increase Yes button size
-        yesSize += 0.3;
+        yesSize += 0.35;
         yesBtn.style.transform = `scale(${yesSize})`;
 
         // Move No button randomly
@@ -126,9 +167,10 @@
 
         noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
-        // Hide No button after few clicks
-        if (noClicks >= 6) {
+        // Hide No button after many clicks
+        if (noClicks >= 7) {
             noBtn.style.display = "none";
+            sureText.textContent = "You can only say YES now 😍💖";
         }
     });
 
@@ -136,6 +178,7 @@
         message.style.display = "block";
         yesBtn.style.display = "none";
         noBtn.style.display = "none";
+        sureText.textContent = "";
     });
 </script>
 
